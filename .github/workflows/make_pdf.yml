@@ -75,4 +75,4 @@ jobs:
         run: |
           git add main.pdf
           git commit -m 'Add main.pdf to repo'
-          git push
+          git push origin main
