@@ -1,0 +1,69 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Create PDF
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "master" branch
+  push:
+    branches: [ "main" ]
+
+      # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+    # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+      # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install git-lfs
+        run: sudo apt-get install -y git-lfs
+
+      - name: Build
+        # You may pin to the exact commit or the version.
+        # uses: xu-cheng/latex-action@f1ca82cbed861b3534e2997dd584944f55b884ed
+        uses: xu-cheng/latex-action@v3
+        with:
+          # The version of TeX Live to be used
+          # texlive_version: # optional
+          # The docker image to be used
+          # docker_image: # optional
+          # The root LaTeX file to be compiled
+          root_file: main.tex
+            # The working directory for this action
+          working_directory: chapters
+            # Change directory into each root file's directory before compiling each documents
+            # work_in_root_file_dir: # optional, default is false
+            # Continuing to build document even with LaTeX build errors
+            # continue_on_error: # optional, default is false
+            # The LaTeX engine to be invoked
+            # compiler: # optional, default is latexmk
+            # Extra arguments to be passed to the LaTeX engine
+            # args: # optional, default is -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+            # Install extra packages by apk
+            # extra_system_packages: # optional
+            # Install extra .ttf/.otf fonts.
+            # extra_fonts: # optional
+            # Arbitrary bash codes to be executed before compiling LaTeX documents
+            # pre_compile: # optional
+            # Arbitrary bash codes to be executed after compiling LaTeX documents
+          post_compile: "latexmk -c"
+            # Instruct latexmk to enable --shell-escape
+            # latexmk_shell_escape: # optional, default is false
+            # Instruct latexmk to use LuaLaTeX
+            # latexmk_use_lualatex: # optional, default is false
+            # Instruct latexmk to use XeLaTeX
+            # latexmk_use_xelatex: # optional, default is false
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: main.pdf
