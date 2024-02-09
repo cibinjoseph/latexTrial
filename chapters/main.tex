@@ -1,14 +1,26 @@
 \documentclass[10pt,a4paper]{article}
 \usepackage[T1]{fontenc}
 \usepackage[]{lipsum}
+\usepackage[]{hyperref}
+\usepackage[hyperref=true,giveninits=true,doi=true,isbn=true,
+url=true,backref,backrefstyle=none,maxcitenames=2,
+dateabbrev=false,urldate=long,labeldateparts]{biblatex}
 
 \title{Latex Trial}
 \author{Cibin}
 
+%\addbibresource{refs.bib}
+\bibliography{refs}
+\makeindex
+
 \begin{document}
 	\maketitle
 	
-	This is a trial document to check if I can deploy Latex pdfs using GitHub Actions.
+	This is a trial document to check if I can deploy Latex pdfs using GitHub Actions~\cite{Drela1989}.
 	
 	\lipsum{1}
+
+\markboth{Bibliography}{Bibliography}
+\printbibliography
+
 \end{document}
