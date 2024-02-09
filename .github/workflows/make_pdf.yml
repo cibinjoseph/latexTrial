@@ -65,11 +65,14 @@ jobs:
 
       - name: Move pdf to main directory
         run: mv chapters/main.pdf .
-      - name: Add pdf file
-        run: git add main.pdf
-      - name: Commit pdf file
-        uses: actions/checkout@v3
-        run: git commit -m 'Add main.pdf to repo'
+
+      - name: Setup github config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+
       - name: Push to repo
-        uses: actions/checkout@v3
-        run: git push
+        run: |
+          git add main.pdf
+          git commit -m 'Add main.pdf to repo'
+          git push
