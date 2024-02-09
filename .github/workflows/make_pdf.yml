@@ -68,6 +68,8 @@ jobs:
       - name: Add pdf file
         run: git add main.pdf
       - name: Commit pdf file
+        uses: actions/checkout@v3
         run: git commit -m 'Add main.pdf to repo'
       - name: Push to repo
+        uses: actions/checkout@v3
         run: git push
