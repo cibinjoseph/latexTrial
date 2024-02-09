@@ -63,7 +63,11 @@ jobs:
             # Instruct latexmk to use XeLaTeX
             # latexmk_use_xelatex: # optional, default is false
 
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: main.pdf
+      - name: Add to repo
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add main.pdf
+          git commit -m 'Add main.pdf to repo'
+          git push
